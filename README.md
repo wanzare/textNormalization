@@ -5,9 +5,12 @@ Given a html files for scientifx texts, normalize the text so as to extract rele
 Example hml from [https://cellculturedish.com/]
 
 ## Requirements
-pip install nltk
-pip install bs4
-pip install num2words
+- install nltk
+- pip install bs4
+- pip install num2words
+-import nltk 
+- nltk.download("stopwords")
+
 
 ##
  Create a domain specific vocabulary from the data
