@@ -23,7 +23,7 @@ Procedure:
 6: Put words to vocabulary dictionary
 7: Save vocabulary to json file
 
-##To run the code
+## To run the code
 ```bash
 python clean.py -i "   PATH TO FILES" -o "OUTPUT FILE TO SAVE THE VOCABULARY"
 e.g. python clean.py -i ../files -o ../files/vocab.txt
