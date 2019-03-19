@@ -1,4 +1,4 @@
-Text notmalization
+Text normalization
 ==================
 Given a html files for scientifx texts, normalize the text so as to extract relevant domain terminology
 
