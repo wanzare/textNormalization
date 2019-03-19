@@ -8,7 +8,7 @@ Example hml from [https://cellculturedish.com/]
 - install nltk
 - pip install bs4
 - pip install num2words
--import nltk 
+- import nltk 
 - nltk.download("stopwords")
 
 
@@ -22,3 +22,9 @@ Procedure:
 5: Remove none word tokens e.g. punctuations, special characters and symbols, ignore words that contain none printable ascii characters
 6: Put words to vocabulary dictionary
 7: Save vocabulary to json file
+
+##To run the code
+```bash
+python clean.py -i "   PATH TO FILES" -o "OUTPUT FILE TO SAVE THE VOCABULARY"
+e.g. python clean.py -i ../files -o ../files/vocab.txt
+```
