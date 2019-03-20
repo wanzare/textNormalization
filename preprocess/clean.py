@@ -67,6 +67,8 @@ def processFile(file,clean_vocab,convert=True,ignore=True):
     method to clean the html files and return the vocabulary
     :param file: html file
     :param clean_vocab: dictionary to hold the words
+    :param convert: conver number to spoken form
+    :param ignore: ignore none ascii printable characters
     :return: vocabulary
     '''
 
