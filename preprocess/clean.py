@@ -38,7 +38,31 @@ def load_files(path):
         if ".html" in entry.path:
             data.append(entry.path)
     return data
-def processFile(file,clean_vocab):
+
+
+def numberTospoken(word):
+    """
+    :param word: String
+    :return: spoken form of number
+    """
+    try:
+            # print(word)
+            word = num2words(word)
+            # print(word)
+            return word
+    except TypeError:
+            m = re.finditer(r"[0-9]+", word)
+            n = re.finditer(r"[^0-9]+", word)
+            #print([x.span() for x in m], word)
+            #print([x.span() for x in n])
+            pass
+            '''
+            TODO: handle cases where the number is between other letters e.g. CO2, 34-34
+    
+            '''
+
+
+def processFile(file,clean_vocab,convert=True,ignore=True):
     '''
     method to clean the html files and return the vocabulary
     :param file: html file
@@ -47,41 +71,36 @@ def processFile(file,clean_vocab):
     '''
 
     soup = BeautifulSoup(open(file), "html.parser").get_text() # get only the text component of the html files
-    word_tokens = word_tokenize(remove_urls(soup))#  remove urls, tokenize the text
-    words = [w.lower() for w in word_tokens if w not in stop_words]#lowercase
-    type(words)#get the unique words in the document
-    vocab = words
-    # convert number to spoken form
-    for word in vocab:
-        num=num_there(word)
-        if num:
-            try:
-                #print(word)
-                word = num2words(word)
-                #print(word)
-            except TypeError:
-                m = re.finditer(r"[0-9]+", word)
-                n = re.finditer(r"[^0-9]+", word)
-                print([x.span() for x in m], word)
-                print([x.span() for x in n])
+    word_tokens = word_tokenize(remove_urls(soup))  #  remove urls, tokenize the text
+    vocab = [w.lower() for w in word_tokens if w not in stop_words]#lowercase
+    # type(words)#get the unique words in the document
+    # vocab = words
 
-                '''
-                TODO: handle cases where the number is between other letters e.g. CO2, 34-34
-                '''
-                continue
+    for word in vocab:
+        # convert number to spoken form
+        if convert:
+            num = num_there(word)
+            if num:
+                word = numberTospoken(word)
+                if word is None:
+                    continue
+
 
         # remove/ignore words with non printable ascii characters
-        try:
-            word.encode("ascii")
-        except UnicodeEncodeError:
-            #print(word)
-            #print("Invalid string")
-            continue
+        if ignore:
+            try:
+                word.encode("ascii")
+            except UnicodeEncodeError:
+                # print(word)
+                # print("Invalid string")
 
-        c_word = re.sub('\W+', ' ', word)# remove not word tokens e.g. punctuations, special characters and symbols
-        #store the words in the dictionary
+                continue
+
+        c_word = re.sub('\W+', ' ', word)  # remove not word tokens e.g. punctuations, special characters and symbols
+
+        # store the words in the dictionary
         if len(c_word) > 1:
-            #print(c_word)
+            print(c_word)
             clean_vocab[c_word] +=1
 
     return clean_vocab
